@@ -1,0 +1,42 @@
+# Node.js dependencies
+node_modules/
+
+# Server dependencies
+/server/node_modules/
+
+# Client dependencies
+/client/node_modules/
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# dotenv environment variables file
+/client/.env
+/server/.env
+.env
+
+# Dependency directories
+public/
+build/
+dist/
+
+# MongoDB data directory
+/data/db
+
+# Yarn
+yarn-error.log
+yarn.lock
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Visual Studio Code settings
+.vscode/

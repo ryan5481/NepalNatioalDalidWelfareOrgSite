@@ -7,6 +7,10 @@ node_modules/
 # Client dependencies
 /client/node_modules/
 
+#uploads
+/client/src/uploads
+
+
 # Logs
 logs
 *.log

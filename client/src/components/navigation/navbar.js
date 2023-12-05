@@ -1,5 +1,5 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+'use client'
+
 import {
   Box,
   Flex,
@@ -15,51 +15,35 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  Avatar
 } from '@chakra-ui/react'
 import {
   HamburgerIcon,
   CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
-  AddIcon
 } from '@chakra-ui/icons'
-import { resetLoginDetails } from '../../redux/reducers/userSlice.js'
-
 
 export default function Navbar() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
   const { isOpen, onToggle } = useDisclosure()
-  const { userRole } = useSelector(state => state.user)
-
-  const handleSignOut = () => {
-    dispatch(resetLoginDetails())
-    navigate("/login")
-  }
 
   return (
     <Box>
       <Flex
-        bg={useColorModeValue('white', 'gray.800')}
-        color={useColorModeValue('gray.600', 'white')}
+        bg="blue.700"
+        color="white"
         minH={'60px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
+        borderColor="gray.500"
         align={'center'}>
         <Flex
           flex={{ base: 1, md: 'auto' }}
           ml={{ base: -2 }}
           display={{ base: 'flex', md: 'none' }}>
           <IconButton
+          color="white"
             onClick={onToggle}
             icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
             variant={'ghost'}
@@ -70,7 +54,9 @@ export default function Navbar() {
           <Text
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}>
+            color="white"
+            cursor="default"
+            >
             Logo
           </Text>
 
@@ -78,61 +64,6 @@ export default function Navbar() {
             <DesktopNav />
           </Flex>
         </Flex>
-
-        <Flex alignItems={'center'}>
-            <Button
-              variant={'solid'}
-              colorScheme={'teal'}
-              size={'sm'}
-              mr={4}
-              leftIcon={<AddIcon />}
-              onClick={() => navigate("/create")}
-              >
-              Create
-            </Button>
-            {userRole == 'user' &&
-              <Menu>
-              <MenuButton
-                as={Button}
-                rounded={'full'}
-                variant={'link'}
-                cursor={'pointer'}
-                minW={0}>
-                <Avatar
-                  size={'sm'}
-                  src={
-                    'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                  }
-                />
-              </MenuButton>
-              <MenuList>
-                <MenuDivider />
-                <MenuItem
-                 _hover={{
-                  textDecoration: 'none',
-                  bg: "blue.400",
-                  color:"white"
-                }} >Profile</MenuItem>
-                <MenuItem
-                 _hover={{
-                  textDecoration: 'none',
-                  bg: "blue.400",
-                  color:"white"
-                }}
-                onClick={() => navigate("/dashboard")}
-                 >Dashboard</MenuItem>
-                <MenuDivider />
-                <MenuItem
-                 _hover={{
-                  textDecoration: 'none',
-                  bg: "red.400",
-                  color:"white"
-                }}
-                onClick={handleSignOut}
-                 >Log Out</MenuItem>
-              </MenuList>
-            </Menu>}
-          </Flex>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
@@ -143,12 +74,10 @@ export default function Navbar() {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200')
-  const linkHoverColor = useColorModeValue('gray.800', 'white')
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800')
+  const linkColor = "white"
 
   return (
-    <Stack direction={'row'} spacing={4}>
+    <Stack direction={'row'} spacing={4} >
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
@@ -159,10 +88,11 @@ const DesktopNav = () => {
                 href={navItem.href ?? '#'}
                 fontSize={'sm'}
                 fontWeight={500}
+                rounded={10}
                 color={linkColor}
                 _hover={{
-                  textDecoration: 'none',
-                  color: linkHoverColor,
+                  bg:"white",
+                  color: "blue.700",
                 }}>
                 {navItem.label}
               </Box>
@@ -172,7 +102,8 @@ const DesktopNav = () => {
               <PopoverContent
                 border={0}
                 boxShadow={'xl'}
-                bg={popoverContentBgColor}
+                bg="blue.700"
+                
                 p={4}
                 rounded={'xl'}
                 minW={'sm'}>
@@ -199,12 +130,12 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       display={'block'}
       p={2}
       rounded={'md'}
-      _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
+      _hover={{ bg: "white", color: "blue.700" }}>
       <Stack direction={'row'} align={'center'}>
         <Box>
           <Text
             transition={'all .3s ease'}
-            _groupHover={{ color: 'pink.400' }}
+            _groupHover={{ color: 'blue.700' }}
             fontWeight={500}>
             {label}
           </Text>
@@ -218,7 +149,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
           justify={'flex-end'}
           align={'center'}
           flex={1}>
-          <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
+          <Icon color={'blue.700'} w={5} h={5} as={ChevronRightIcon} />
         </Flex>
       </Stack>
     </Box>
@@ -241,6 +172,8 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
   return (
     <Stack spacing={4} onClick={children && onToggle}>
       <Box
+      borderBottomRadius={10}
+      color="blue.600"
         py={2}
         as="a"
         href={href ?? '#'}
@@ -248,8 +181,9 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
         alignItems="center"
         _hover={{
           textDecoration: 'none',
+          borderRadius: 10
         }}>
-        <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
+        <Text fontWeight={600}>
           {label}
         </Text>
         {children && (
@@ -265,6 +199,8 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
 
       <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
         <Stack
+      color="blue.600"
+
           mt={2}
           pl={4}
           borderLeft={1}
@@ -292,43 +228,210 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'Home',
-    href: '/'
-    // children: [
-    //   {
-    //     label: 'Explore Design Work',
-    //     subLabel: 'Trending Design to inspire you',
-    //     href: '#',
-    //   },
-    //   {
-    //     label: 'New & Noteworthy',
-    //     subLabel: 'Up-and-coming Designers',
-    //     href: '#',
-    //   },
-    // ],
+    label: "Home",
+    href: "/"
   },
   {
     label: 'About Us',
-    href: 'about-us',
-    // children: [
-    //   {
-    //     label: 'Job Board',
-    //     subLabel: 'Find your dream design job',
-    //     href: '#',
-    //   },
-    //   {
-    //     label: 'Freelance Projects',
-    //     subLabel: 'An exclusive list for contract work',
-    //     href: '#',
-    //   },
-    // ],
+    children: [
+      {
+        label: 'Historical background',
+        subLabel: 'Narrative, Historical Photos',
+        href: '#',
+      },
+      {
+        label: 'Key Message',
+        href: '#',
+      },
+      {
+        label: 'Core Values',
+        subLabel: 'VMGO / Core Value, Thematic Areas',
+        href: '#',
+      },
+      {
+        label: 'Advisory',
+        subLabel: 'Patron, Advisory, Board, Executive Committe',
+        href: '#',
+      },
+      {
+        label: 'Staff',
+        subLabel: 'Central Staff, District Staff',
+        href: '#',
+      },
+    ],
+  },
+  {
+    label: 'Outreach',
+    children: [
+      {
+        label: 'National Affiliation',
+        href: '#',
+      },
+      {
+        label: 'International Affiliation',
+        href: '#',
+      },
+      {
+        label: 'Network And Group Facilitated',
+        href: '#',
+      },
+    ],
+  },
+  {
+    label: 'Punblications & Resources',
+    href: '#',
+    children: [
+      {
+        label: 'Blog',
+        href: '#',
+      },
+      {
+        label: 'Court Desicion',
+        href: '#',
+      },
+      {
+        label: 'Booklets',
+        href: '#',
+      },
+      {
+        label: 'Research',
+        href: '#',
+      },
+      {
+        label: 'Success Stories',
+        href: '#',
+      },
+      {
+        label: 'magazine',
+        href: '#',
+      },
+      {
+        label: 'Case Studies',
+        href: '#',
+      },
+      {
+        label: 'Good Practices',
+        subLabel: 'Lesson Learned',
+        href: '#',
+      },
+      {
+        label: 'Recommendations',
+        href: '#',
+      },
+    ],
+  },
+  {
+    label: 'Programmes',
+    href: '#',
+    children: [
+      {
+        label: 'Human Rights',
+        subLabel: 'Non-discrimination & Social Justice',
+        href: '#',
+      },
+      {
+        label: 'Democratic Governence',
+        subLabel: 'Inclusion & Accountablity',
+        href: '#',
+      },
+      {
+        label: 'Education',
+        subLabel: 'Access To Education & Life Skills',
+        href: '#',
+      },
+      {
+        label: 'Livelihood Empowerment',
+        href: '#',
+      },
+      {
+        label: 'Campign & Movement',
+        href: '#',
+      }
+    ],
+  },
+  {
+    label: 'Projects',
+    href: '#',
+    children: [
+      {
+        label: 'Current',
+        href: '#',
+      },
+      {
+        label: 'Completed',
+        href: '#',
+      }
+    ],
+  },
+  {
+    label: 'Gallery',
+    href: '#',
+    children: [
+      {
+        label: 'Photos',
+        href: '#',
+      },
+      {
+        label: 'Videos',
+        href: '#',
+      },
+      {
+        label: 'Documantaries',
+        href: '#',
+      }
+    ],
+  },
+  {
+    label: 'Notices',
+    href: '#',
+    children: [
+      {
+        label: 'Procurement',
+        href: '#',
+      },
+      {
+        label: 'Vacancy',
+        href: '#',
+      },
+      {
+        label: 'Other Notices',
+        href: '#',
+      },
+      {
+        label: 'Online Application',
+        href: '#',
+      },
+      {
+        label: 'Subscribe',
+        href: '#',
+      }
+    ],
   },
   {
     label: 'Contact Us',
-    href: 'contact-us',
+    href: '#',
+    children: [
+      {
+        label: 'Feedbacks',
+        href: '#',
+      },
+      {
+        label: 'Forms',
+        href: '#',
+      },
+      {
+        label: 'FDorms & Formats',
+        href: '#',
+      },
+      {
+        label: 'FIR Form',
+        href: '#',
+      },
+      {
+        label: 'Important Links',
+        href: '#',
+      }
+    ],
   },
-//   {
-//     label: 'Hire Designers',
-//     href: '#',
-//   },
+ 
 ]

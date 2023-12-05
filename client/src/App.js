@@ -20,7 +20,6 @@ function Layout() {
   return (
     <>
       <ChakraProvider>
-        <Navbar/>
         <ConditionalRoute />
       </ChakraProvider>
     </>

@@ -21,7 +21,7 @@ const ConditionalRoute = () => {
 const UserRoutes = () => {
   return (
     <>
-      <Navbar zIndex={10} />
+      <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} /> */}
       </Routes>

@@ -27,7 +27,7 @@ export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
-    <Box>
+    <Box pos="sticky" zIndex={999} top="0px" left="0px">
       <Flex
         bg="blue.700"
         color="white"
